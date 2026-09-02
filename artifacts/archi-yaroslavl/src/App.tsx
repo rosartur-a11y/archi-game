@@ -508,18 +508,64 @@ function Home() {
 
         {view === 'home' && (
           <div className="home-view">
-            <section className="hero-card">
-              <div className="hero-copy">
-                <div className="eyebrow">точка старта · ярославль</div>
-                <h1>С нуля.<br /><em>По-своему.</em></h1>
-                <p>Каждое действие приближает ARCHI к своему первому большому проекту.</p>
-              </div>
-              <div className="hero-stamp" aria-hidden="true">
-                <span>01</span>
-                <small>путь</small>
-              </div>
-            </section>
+            <section className={`hero-card hero-level-${Math.min(game.level, 4)}`}>
+                <div className="hero-copy">
+                  <div className="eyebrow">точка старта · ярославль</div>
 
+                  <h1>
+                    С нуля.<br />
+                    <em>По-своему.</em>
+                  </h1>
+
+                  <p>
+                    Каждый день — новый шаг.
+                    Сегодня ARCHI начинает свой путь.
+                  </p>
+                </div>
+
+                <div className="archi-character" aria-label="Персонаж ARCHI">
+                  <div className="archi-shadow" />
+
+                  <div className="archi-head">
+                    <div className="archi-hair" />
+                    <div className="archi-face">
+                      <span className="eye eye-left" />
+                      <span className="eye eye-right" />
+                      <span className="mouth" />
+                    </div>
+                  </div>
+
+                  <div className="archi-body">
+                    <div className="archi-shirt">
+                      <span>A</span>
+                    </div>
+
+                    <div className="archi-arm arm-left" />
+                    <div className="archi-arm arm-right" />
+
+                    <div className="archi-leg leg-left" />
+                    <div className="archi-leg leg-right" />
+                  </div>
+
+                  {game.level >= 20 && (
+                    <div className="archi-beard" aria-hidden="true" />
+                  )}
+
+                  {game.level >= 10 && (
+                    <div className="archi-chain" aria-hidden="true" />
+                  )}
+                </div>
+
+                <div className="hero-stamp" aria-hidden="true">
+                  <span>{String(game.level).padStart(2, '0')}</span>
+                  <small>уровень</small>
+                </div>
+
+                <div className="hero-location">
+                  <span className="location-dot" />
+                  Ярославль
+                </div>
+            </section>
             <section className="level-card" aria-label="Прокачка персонажа">
               <div className="level-card-top">
                 <div className="level-avatar" aria-hidden="true"><UserRound size={19} /></div>
