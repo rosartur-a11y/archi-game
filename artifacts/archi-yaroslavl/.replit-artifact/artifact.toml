@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "ПУТЬ ARCHI: Ярославль"
+description = "Мобильная браузерная idle/clicker игра о пути ARCHI к успеху в Ярославле: заработок кликами, пассивный доход, магазин улучшений и сохранение прогресса."
+version = "1.0.0"
+id = "artifacts/archi-yaroslavl"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24355
+
+[services.development]
+run = "pnpm --filter @workspace/archi-yaroslavl run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/archi-yaroslavl", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/archi-yaroslavl/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24355"
+BASE_PATH = "/"
