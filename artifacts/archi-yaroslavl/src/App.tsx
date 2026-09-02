@@ -33,6 +33,16 @@ type ActionId = 'work' | 'video' | 'rest' | 'develop';
 type UpgradeId = 'phone' | 'office' | 'team' | 'brand';
 type View = 'home' | 'shop' | 'achievements';
 
+type PathLocation = {
+  id: string;
+  title: string;
+  note: string;
+  description: string;
+  image: string;
+  icon: LucideIcon;
+  unlockLevel: number;
+};
+
 type GameState = {
   money: number;
   level: number;
@@ -131,6 +141,66 @@ const ACTIONS: Array<{
     icon: Rocket,
     accent: 'gold',
     energyCost: 24,
+  },
+];
+
+const assetPath = (fileName: string) =>
+  `${import.meta.env.BASE_URL}images/${fileName}`;
+
+const PATH_LOCATIONS: PathLocation[] = [
+  {
+    id: 'start',
+    title: 'Точка старта',
+    note: 'начало истории',
+    description: 'Первый шаг, с которого начинается путь ARCHI.',
+    image: 'archi-location-start.jpg',
+    icon: House,
+    unlockLevel: 1,
+  },
+  {
+    id: 'yaroslavl',
+    title: 'Ярославль',
+    note: 'город силы',
+    description: 'Город, где идея превращается в движение.',
+    image: 'archi-location-yaroslavl.jpg',
+    icon: Building2,
+    unlockLevel: 1,
+  },
+  {
+    id: 'filming',
+    title: 'Съёмки',
+    note: 'контент и охваты',
+    description: 'Место для роликов, которые находят свою аудиторию.',
+    image: 'archi-location-filming.jpg',
+    icon: Video,
+    unlockLevel: 2,
+  },
+  {
+    id: 'work',
+    title: 'Работа',
+    note: 'первые деньги',
+    description: 'Здесь ARCHI зарабатывает и набирает темп.',
+    image: 'archi-location-work.jpg',
+    icon: BriefcaseBusiness,
+    unlockLevel: 3,
+  },
+  {
+    id: 'big-stage',
+    title: 'Большая сцена',
+    note: 'новый масштаб',
+    description: 'Следующая глава откроется, когда ARCHI станет увереннее.',
+    image: 'archi-location-yaroslavl.jpg',
+    icon: Trophy,
+    unlockLevel: 5,
+  },
+  {
+    id: 'new-chapter',
+    title: 'Новая глава',
+    note: 'впереди больше',
+    description: 'Дальний маршрут для тех, кто не останавливается.',
+    image: 'archi-location-filming.jpg',
+    icon: Rocket,
+    unlockLevel: 8,
   },
 ];
 
@@ -524,36 +594,14 @@ function Home() {
                 </div>
 
                 <div className="archi-character" aria-label="Персонаж ARCHI">
-                  <div className="archi-shadow" />
-
-                  <div className="archi-head">
-                    <div className="archi-hair" />
-                    <div className="archi-face">
-                      <span className="eye eye-left" />
-                      <span className="eye eye-right" />
-                      <span className="mouth" />
-                    </div>
-                  </div>
-
-                  <div className="archi-body">
-                    <div className="archi-shirt">
-                      <span>A</span>
-                    </div>
-
-                    <div className="archi-arm arm-left" />
-                    <div className="archi-arm arm-right" />
-
-                    <div className="archi-leg leg-left" />
-                    <div className="archi-leg leg-right" />
-                  </div>
-
-                  {game.level >= 20 && (
-                    <div className="archi-beard" aria-hidden="true" />
-                  )}
-
-                  {game.level >= 10 && (
-                    <div className="archi-chain" aria-hidden="true" />
-                  )}
+                  <img
+                    src={assetPath('archi-character.png')}
+                    alt="ARCHI — персонаж игры"
+                    className="archi-image"
+                    width="1024"
+                    height="1024"
+                    fetchPriority="high"
+                  />
                 </div>
 
                 <div className="hero-stamp" aria-hidden="true">
@@ -566,6 +614,54 @@ function Home() {
                   Ярославль
                 </div>
             </section>
+
+            <section className="path-section" aria-label="Карта путешествия ARCHI">
+              <div className="path-heading">
+                <div>
+                  <div className="eyebrow">визуальная карта пути</div>
+                  <h2>Маршрут ARCHI</h2>
+                </div>
+                <span>{PATH_LOCATIONS.filter((location) => game.level >= location.unlockLevel).length} / {PATH_LOCATIONS.length} открыто</span>
+              </div>
+
+              <div className="path-map">
+                {PATH_LOCATIONS.map((location, index) => {
+                  const Icon = location.icon;
+                  const isLocked = game.level < location.unlockLevel;
+                  return (
+                    <article className={`path-card ${isLocked ? 'is-locked' : ''} ${index === 0 ? 'is-current' : ''}`} key={location.id}>
+                      <div className="path-image-wrap">
+                        <img
+                          src={assetPath(location.image)}
+                          alt=""
+                          className="path-image"
+                          loading={index < 2 ? 'eager' : 'lazy'}
+                          width="1024"
+                          height="1024"
+                        />
+                        <div className="path-image-shade" />
+                        <span className="path-step">0{index + 1}</span>
+                        {isLocked && (
+                          <div className="path-lock">
+                            <LockKeyhole size={14} aria-hidden="true" />
+                            <span>уровень {location.unlockLevel}</span>
+                          </div>
+                        )}
+                      </div>
+                      <div className="path-card-copy">
+                        <div className="path-card-title">
+                          <span className="path-card-icon" aria-hidden="true"><Icon size={14} /></span>
+                          <h3>{location.title}</h3>
+                        </div>
+                        <span className="path-card-note">{location.note}</span>
+                        <p>{location.description}</p>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
+
             <section className="level-card" aria-label="Прокачка персонажа">
               <div className="level-card-top">
                 <div className="level-avatar" aria-hidden="true"><UserRound size={19} /></div>
