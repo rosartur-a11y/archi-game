@@ -9,33 +9,35 @@ type ArchiLook = {
 };
 
 /**
- * Replace the files in public/images/archi/ with real ARCHI photos.
- * The level thresholds keep the visual progression independent from game state.
+ * These four assets are cropped from the "СТИЛИ ПЕРСОНАЖА" row in the
+ * uploaded reference sheet. Only the portrait area is used; the source
+ * sheet's headings, labels, frames, and other panels are not part of the
+ * in-game character assets.
  */
 const ARCHI_LOOKS: ArchiLook[] = [
   {
-    id: 'season-04',
+    id: 'legend',
     minLevel: 30,
     fileName: 'level-30.png',
-    alt: 'ARCHI — образ четвёртого этапа пути',
+    alt: 'ARCHI — образ «Легенда»',
   },
   {
-    id: 'season-03',
+    id: 'successful',
     minLevel: 20,
     fileName: 'level-20.png',
-    alt: 'ARCHI — образ третьего этапа пути',
+    alt: 'ARCHI — образ «Успешный»',
   },
   {
-    id: 'season-02',
+    id: 'development',
     minLevel: 10,
     fileName: 'level-10.png',
-    alt: 'ARCHI — образ второго этапа пути',
+    alt: 'ARCHI — образ «Развитие»',
   },
   {
-    id: 'season-01',
+    id: 'novice',
     minLevel: 1,
     fileName: 'level-01.png',
-    alt: 'ARCHI — образ первого этапа пути',
+    alt: 'ARCHI — образ «Новичок»',
   },
 ];
 
@@ -48,10 +50,7 @@ type ArchiCharacterProps = {
 
 export function ArchiCharacter({ level }: ArchiCharacterProps) {
   const look = getArchiLook(level);
-  const lookImage =
-    look.minLevel === 1
-      ? originalArchiCharacter
-      : `${import.meta.env.BASE_URL}images/archi/${look.fileName}`;
+  const lookImage = `${import.meta.env.BASE_URL}images/archi/${look.fileName}`;
   const [failedImage, setFailedImage] = useState<string | null>(null);
 
   useEffect(() => {
