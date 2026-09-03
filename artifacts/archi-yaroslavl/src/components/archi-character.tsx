@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import originalArchiCharacter from '@assets/generated_images/archi-character.png';
 
 type ArchiLook = {
   id: string;
@@ -38,8 +39,6 @@ const ARCHI_LOOKS: ArchiLook[] = [
   },
 ];
 
-const defaultImage = `${import.meta.env.BASE_URL}images/archi-character.png`;
-
 const getArchiLook = (level: number) =>
   ARCHI_LOOKS.find((look) => level >= look.minLevel) ?? ARCHI_LOOKS.at(-1)!;
 
@@ -49,14 +48,18 @@ type ArchiCharacterProps = {
 
 export function ArchiCharacter({ level }: ArchiCharacterProps) {
   const look = getArchiLook(level);
-  const lookImage = `${import.meta.env.BASE_URL}images/archi/${look.fileName}`;
+  const lookImage =
+    look.minLevel === 1
+      ? originalArchiCharacter
+      : `${import.meta.env.BASE_URL}images/archi/${look.fileName}`;
   const [failedImage, setFailedImage] = useState<string | null>(null);
 
   useEffect(() => {
     setFailedImage(null);
   }, [lookImage]);
 
-  const imageSource = failedImage === lookImage ? defaultImage : lookImage;
+  const imageSource =
+    failedImage === lookImage ? originalArchiCharacter : lookImage;
 
   return (
     <div className="archi-character" aria-label="Персонаж ARCHI" data-archi-look={look.id}>

@@ -1998,12 +1998,16 @@ img {
 }
 
 .archi-character {
-  width: 160px;
-  height: 226px;
+  width: 235px;
+  height: 238px;
+  right: -12px;
+  bottom: -18px;
   overflow: visible;
   border: 0;
   background: transparent;
   box-shadow: none;
+  transform: scale(.86);
+  transform-origin: bottom right;
 }
 
 .archi-image {
@@ -2207,8 +2211,11 @@ img {
 
 @media (max-width: 380px) {
   .archi-character {
-    width: 146px;
-    height: 210px;
+    width: 220px;
+    height: 226px;
+    right: -14px;
+    bottom: -17px;
+    transform: scale(.82);
   }
 
   .path-section {
@@ -2241,5 +2248,8 @@ img {
   .archi-character {
     width: 178px;
     height: 244px;
+    right: 24px;
+    bottom: -4px;
+    transform: scale(.8);
   }
 }
