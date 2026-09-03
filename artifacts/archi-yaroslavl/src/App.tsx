@@ -26,6 +26,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
+import { ArchiCharacter } from '@/components/archi-character';
 import NotFound from '@/pages/not-found';
 import { Route, Switch, useLocation, Router as WouterRouter } from 'wouter';
 
@@ -593,16 +594,7 @@ function Home() {
                   </p>
                 </div>
 
-                <div className="archi-character" aria-label="Персонаж ARCHI">
-                  <img
-                    src={assetPath('archi-character.png')}
-                    alt="ARCHI — персонаж игры"
-                    className="archi-image"
-                    width="1024"
-                    height="1024"
-                    fetchPriority="high"
-                  />
-                </div>
+                <ArchiCharacter level={game.level} />
 
                 <div className="hero-stamp" aria-hidden="true">
                   <span>{String(game.level).padStart(2, '0')}</span>
