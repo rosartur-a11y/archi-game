@@ -18,25 +18,25 @@ const ARCHI_LOOKS: ArchiLook[] = [
   {
     id: 'legend',
     minLevel: 30,
-    fileName: 'level-30.png',
+    fileName: 'level-30.sprite.png',
     alt: 'ARCHI — образ «Легенда»',
   },
   {
     id: 'successful',
     minLevel: 20,
-    fileName: 'level-20.png',
+    fileName: 'level-20.sprite.png',
     alt: 'ARCHI — образ «Успешный»',
   },
   {
     id: 'development',
     minLevel: 10,
-    fileName: 'level-10.png',
+    fileName: 'level-10.sprite.png',
     alt: 'ARCHI — образ «Развитие»',
   },
   {
     id: 'novice',
     minLevel: 1,
-    fileName: 'level-01.png',
+    fileName: 'level-01.sprite.png',
     alt: 'ARCHI — образ «Новичок»',
   },
 ];

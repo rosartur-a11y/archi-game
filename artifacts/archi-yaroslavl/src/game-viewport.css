@@ -1,0 +1,388 @@
+/* ============================================================
+   ПУТЬ ARCHI — единый слой компактности под высоту экрана.
+   Импортируется ПЕРВЫМ в index.css, поэтому все селекторы
+   уточнены (.game-shell / .app-frame / .view), чтобы перекрывать
+   базовые правила index.css независимо от порядка файлов.
+
+   Цель: «ПУТЬ», «РАЗВИТИЕ» и «ТРОФЕИ» помещаются в один экран
+   телефона — без длинной вертикальной прокрутки страницы.
+   Запас по высоте распределяется между фиксированными блоками
+   (dv-клампы), а внутри основных панелей работает аккуратный
+   внутренний скролл (скрытый) только на крайне низких экранах.
+   ============================================================ */
+
+/* ---------- базовые плавные размеры (всегда активны) ---------- */
+
+/* Сцена: высота зависит от высоты вьюпорта, но не выходит за разумные рамки */
+.view .hero-scene {
+  height: clamp(104px, 15dvh, 146px);
+  margin-top: 6px;
+}
+
+.view .scene-character {
+  width: clamp(82px, 11.5dvh, 106px);
+  height: clamp(116px, 16dvh, 150px);
+}
+
+/* Кнопки действий: растут с высотой экрана, но остаются компактными */
+.view .action-card {
+  min-height: clamp(40px, 6.6dvh, 52px);
+}
+
+.view .action-card-icon {
+  width: clamp(28px, 4dvh, 34px);
+  height: clamp(28px, 4dvh, 34px);
+  flex-basis: clamp(28px, 4dvh, 34px);
+  border-radius: 10px;
+}
+
+.view .action-grid {
+  gap: 5px;
+}
+
+.view .action-card-copy strong {
+  font-size: clamp(10px, 1.6dvh, 12px);
+}
+
+.view .action-card-cost {
+  padding: 3px 7px;
+  font-size: 8.5px;
+}
+
+/* HUD и энергия */
+.view .stat-chip-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.view .energy-block {
+  margin-top: 6px;
+  padding: 6px 8px;
+}
+
+.view .energy-badge {
+  width: 28px;
+  height: 28px;
+  flex-basis: 28px;
+}
+
+.view .ad-reward-btn {
+  width: 64px;
+  height: 32px;
+}
+
+/* Цель */
+.view .goal-card {
+  margin-top: 6px;
+  padding: 7px 10px;
+}
+
+.view .goal-icon {
+  width: 30px;
+  height: 30px;
+  flex-basis: 30px;
+}
+
+/* Центральная панель «ЧТО ДЕЛАЕМ СЕГОДНЯ?» */
+.view .actions-section {
+  margin-top: 7px;
+  padding: 10px 11px 9px;
+}
+
+.view .section-heading {
+  padding-bottom: 7px;
+}
+
+.view .section-heading-icon {
+  width: 26px;
+  height: 26px;
+  flex-basis: 26px;
+}
+
+.view .section-heading h2 {
+  font-size: 13px;
+}
+
+/* Меню-чипсы под действиями */
+.view .home-extra {
+  margin-top: 6px;
+}
+
+.view .extra-chip {
+  min-height: 30px;
+}
+
+/* Верхняя панель */
+.app-frame .topbar {
+  padding: 0 0 6px;
+}
+
+/* Нижняя навигация */
+.game-shell .nav-item {
+  min-height: 50px;
+}
+
+/* ---------- высоты до 860px ---------- */
+
+@media (max-height: 860px) {
+  .game-shell .app-frame {
+    padding: max(6px, env(safe-area-inset-top)) 10px 6px;
+  }
+
+  .view .stat-chip {
+    padding: 6px 2px 5px;
+  }
+
+  .view .stat-chip-value {
+    font-size: 10.5px;
+    margin-top: 2px;
+  }
+
+  .game-shell .bottom-nav {
+    margin: 0 10px calc(6px + env(safe-area-inset-bottom));
+    gap: 4px;
+    padding: 5px;
+    padding-bottom: calc(5px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ---------- высоты до 760px ---------- */
+
+@media (max-height: 760px) {
+  .view .energy-badge {
+    width: 26px;
+    height: 26px;
+    flex-basis: 26px;
+  }
+
+  .view .ad-reward-btn {
+    width: 60px;
+    height: 30px;
+  }
+
+  .view .goal-main h3 {
+    font-size: 11px;
+  }
+
+  .view .actions-section {
+    margin-top: 6px;
+    padding: 9px 10px 8px;
+  }
+
+  .view .section-heading {
+    padding-bottom: 6px;
+  }
+
+  .view .section-heading-icon {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+  }
+
+  .view .home-extra {
+    margin-top: 5px;
+  }
+
+  .game-shell .nav-item {
+    min-height: 48px;
+  }
+
+  /* Развитие: компактнее герой и эволюция */
+  .view .dev-hero {
+    padding: 9px 11px;
+  }
+
+  .view .dev-hero-art {
+    width: 84px;
+    height: 118px;
+  }
+
+  .view .dev-xp {
+    margin-top: 6px;
+    padding: 8px 11px;
+  }
+
+  .view .dev-stats {
+    margin-top: 6px;
+  }
+
+  .view .dev-stat {
+    padding: 5px 3px;
+  }
+
+  .view .dev-stat strong {
+    font-size: 9px;
+  }
+
+  .view .evolution-section {
+    margin-top: 7px;
+  }
+
+  .view .evolution-art {
+    height: 58px;
+  }
+
+  .view .evolution-art img {
+    height: 58px;
+  }
+
+  .view .dev-actions-row {
+    margin-top: 7px;
+  }
+
+  .view .dev-quick-btn {
+    min-height: 40px;
+  }
+}
+
+/* ---------- высоты до 700px ---------- */
+
+@media (max-height: 700px) {
+  .app-frame .brand-symbol {
+    width: 30px;
+    height: 30px;
+    flex-basis: 30px;
+  }
+
+  .view .hud-stats {
+    gap: 4px;
+  }
+
+  .view .stat-chip {
+    padding: 5px 2px 4px;
+  }
+
+  .view .stat-chip-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .view .stat-chip-value {
+    font-size: 10px;
+  }
+
+  .view .stat-chip-label {
+    font-size: 6px;
+  }
+
+  .view .energy-block {
+    margin-top: 5px;
+    padding: 5px 8px;
+  }
+
+  .view .energy-badge {
+    width: 24px;
+    height: 24px;
+    flex-basis: 24px;
+  }
+
+  .view .goal-card {
+    margin-top: 5px;
+    padding: 6px 9px;
+  }
+
+  .view .goal-track {
+    width: 72px;
+  }
+
+  .view .extra-chip {
+    min-height: 28px;
+    font-size: 7px;
+  }
+
+  .view .actions-section {
+    margin-top: 5px;
+    padding: 8px 9px 7px;
+  }
+
+  .view .section-heading {
+    padding-bottom: 5px;
+  }
+
+  .view .action-card-copy small {
+    font-size: 6.5px;
+  }
+
+  /* На малом экране убираем второстепенные подписи — освобождаем место */
+  .app-frame .brand-subtitle,
+  .app-frame .save-status,
+  .game-shell .scene-chapter,
+  .game-shell .scene-next-hint {
+    display: none;
+  }
+
+  .game-shell .bottom-nav {
+    margin: 0 8px calc(5px + env(safe-area-inset-bottom));
+    gap: 3px;
+    padding: 4px;
+    padding-bottom: calc(4px + env(safe-area-inset-bottom));
+  }
+
+  .game-shell .nav-item {
+    min-height: 46px;
+  }
+
+  .game-shell .nav-icon {
+    width: 28px;
+    height: 24px;
+  }
+}
+
+/* ---------- высоты до 640px (очень низкие экраны) ---------- */
+
+@media (max-height: 640px) {
+  .view .stat-chip-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .view .energy-badge {
+    width: 22px;
+    height: 22px;
+    flex-basis: 22px;
+  }
+
+  .view .hero-scene {
+    height: clamp(88px, 14.5dvh, 104px);
+  }
+
+  .view .scene-character {
+    width: clamp(70px, 11dvh, 84px);
+    height: clamp(98px, 15.5dvh, 118px);
+  }
+
+  .view .goal-icon {
+    width: 26px;
+    height: 26px;
+    flex-basis: 26px;
+  }
+
+  .view .action-card-copy strong {
+    font-size: 9.5px;
+  }
+
+  .view .action-card-cost {
+    font-size: 8px;
+    padding: 2px 6px;
+  }
+
+  .view .dev-hero-name {
+    font-size: 20px;
+  }
+
+  .game-shell .nav-item {
+    min-height: 44px;
+  }
+}
+
+/* ---------- гарантия: игровая область не уезжает за навигацию ---------- */
+
+.game-shell .app-frame {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.game-shell .app-frame::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
